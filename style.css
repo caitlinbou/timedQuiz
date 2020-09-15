@@ -1,0 +1,20 @@
+body {
+    background-image: url(White.jpg);
+}
+
+header {
+    color: Purple;
+    font-size: 50px;
+    text-align: center;
+    /* font-family: comic sans-serif; */
+}
+    
+.row {
+    text-align: center;
+}
+/* 
+.hideBtn {
+    display: none;
+} */
+
+
