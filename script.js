@@ -1,4 +1,4 @@
-//Object Array of 5 Questions (key/value pairs)
+//Object Array of 5 Questions to be presented for quiz (key/value pairs)
 var questionArr = [
     {
        question: "What is the main language of the web?",
@@ -26,7 +26,7 @@ var questionArr = [
        correctAnswer: "multiWord"
     }
  ];
-// Global Variables
+// Global Variables defined
 var header = document.querySelector("header");
 var btnA = document.querySelector(".btna");
 var btnB = document.querySelector(".btnb");
@@ -37,14 +37,63 @@ var answerBtns = document.querySelectorAll(".answerBtn")
 var currentQuestionIndex = 0
 var message = document.querySelector(".message");
 var score = 0
-// var question1 = questionArr[0]
-// var question2 = questionArr[1]
-// var question3 = questionArr[2]
-// var question4 = questionArr[3]
-// var question5 = questionArr[4]
+var countDown = document.querySelector(".countdown");
+var secondsLeft = 30;
+var intervalTimer;
+var highScores = document.querySelector(".highScores"); 
+var scores = {
+    initials: "",
+    score: ""
+}
+highScores = scores;
+// answerBtns.classList.add("hideBtn")
+// hiding the multiple choice buttons prior to start of game
+btnA.style.display = "none";
+btnB.style.display = "none";
+btnC.style.display = "none";
+btnD.style.display = "none"; 
 
-// function to display the questions on the page
+// setting and clearing timer for the start and automatic reset of the game
+function setTime() {
+    secondsLeft = 30
+    intervalTimer = setInterval(function() {
+    secondsLeft--;
+    countDown.textContent = secondsLeft;
+
+    if(secondsLeft === 0 || currentQuestionIndex === 5) {
+      var initials = prompt("Game Over, final score: " + score + ". Please enter your initials for the scoreboard.")
+      document.querySelector("#scoreList").textContent = "High Scores: " + initials + "," + " " + "score:" + " " + score;
+    //   localStorage.setItem("quizScores", JSON.stringify(score));
+      btnSubmit.classList.remove("hideBtn")
+    //   answerBtns.classList.add("hideBtn")
+      btnA.style.display = "none";
+      btnB.style.display = "none";
+      btnC.style.display = "none";
+      btnD.style.display = "none";
+      currentQuestionIndex = 0
+      header.textContent = "Coding Quiz Challenge"
+      countDown.textContent = "30 SECONDS TO PLAY"
+      message.textContent = "Have Fun!!"
+      score = 0
+      clearInterval(intervalTimer);
+    }
+    }, 1000);
+}
+// event listener to start game and show first question
+btnSubmit.addEventListener("click", function(){
+    showQuestion()
+    setTime()
+    btnSubmit.classList.add("hideBtn")
+    message.textContent = "You got this!"
+});
+
+// function to display the questions on the page one at a time after game initiation
 function showQuestion(){
+    // answerBtns.classList.remove("hideBtn")
+    btnA.style.display = "inline-block";
+    btnB.style.display = "inline-block";
+    btnC.style.display = "inline-block";
+    btnD.style.display = "inline-block";
     var currentQuestion = questionArr[currentQuestionIndex];
     header.textContent = currentQuestion.question;
     btnA.textContent = currentQuestion.answer[0];
@@ -53,52 +102,42 @@ function showQuestion(){
     btnD.textContent = currentQuestion.answer[3];
 };
 
-
-btnSubmit.addEventListener("click", function(){
-    showQuestion()
-    message.textContent = "You got this!"
-}
-);
-
-// TODO: scoring purposes
-     // if text content of button selected = rightAnswer, add points, show message--answer checker 
-    // function where upon click it checks if text content === answr
-    // THEN show next question   
-    // console.log(answerBtns);
 answerBtns.forEach(function(button) {
     button.addEventListener("click", function(event){
         // console.log(event.target.textContent)
         if(event.target.textContent === questionArr[currentQuestionIndex].correctAnswer){
             score = score + 10
             message.textContent = "Correct! Current score: " + score
-            if (currentQuestionIndex < 4){
-                currentQuestionIndex ++
-                showQuestion();
-            } else {
-                message.textContent = "Correct! +10pts! Thanks for playing. Your final score is: " + score
-            };
         }else{
+            secondsLeft = secondsLeft - 5
             message.textContent = "Oooh...you lose 5 seconds! Current score: " + score
-            if (currentQuestionIndex < 4){
-                currentQuestionIndex ++
-                showQuestion();
-            } else {
-                message.textContent = "Not quite! Thanks for playing. Your final score is: " + score
-            currentQuestionIndex ++
-            showQuestion()
-            };
         }
-    }
-    )
-}
-);
+        currentQuestionIndex ++
+        if(currentQuestionIndex<5){
+        showQuestion();
+        }
+    });
+});
+
+// highScores.addEventListener("click", function(){
+    localStorage.setItem("");
+    highScores = localStorage.getItem()
+
+    
+
+// });
+
+// score.push({})          
+            
+            
+
+// TODO: when game over show initials input and final score, store in local storage.
+    // TODO: HOW DO I STORE THE PROMPT ANSWER and score
+    
 
             
 
-    // TODO: set TIMER with setInterval, give 1 min. Game over if timer gets to zero or if all questions are answered.
-         // TODO: include in timer a loss of 5 seconds for every wrong answer
-            
-    //TODO: when game over show initials and score, store in local storage.
+
 
 
 

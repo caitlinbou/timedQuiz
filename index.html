@@ -14,49 +14,50 @@
   </head>
   
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">View High Scores</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-      <span class="navbar-text count">
-        Countdown to go here
+    <button class="btn btn-secondary highScores">View High Scores</button>
+      <span class="navbar-text countdown">
+        30 SECONDS TO PLAY  
       </span>
-    </div>
   </nav>
-  
-  
+
   <body>
-    <div class="row">
-        <div class="col">
-            <header class="header">Coding Quiz Challenge</header>
-        </div>    
+    <div class="container" id="quizContent">
+      <div class="row">
+          <div class="col">
+              <header class="header">Coding Quiz Challenge</header>
+          </div>    
+      </div>
+      <div class="row">
+          <div class="col">
+              <button type="button" class="answerBtn btn btn-outline-primary btna">A: </button>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col">
+              <button type="button" class="answerBtn btn btn-outline-secondary btnb">B: </button>
+          </div>
+      </div>
+      <div class="row">  
+          <div class="col">
+              <button type="button" class="answerBtn btn btn-outline-success btnc">C: </button>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col"> 
+              <button type="button" class="answerBtn btn btn-outline-danger btnd">D: </button>    
+          </div>
+      </div> 
+      <div class="row">
+          <div class="col">
+              <button type="button" class="btnSubmit sbtn btn-primary">Start Game!!</button>
+          </div>    
+      </div> 
+      <div class="message">Have fun!!</div>
+
     </div>
-    <div class="row">
-        <div class="col">
-            <button type="button" class="answerBtn btn btn-outline-primary btna">A: </button>
-        </div>
+    <div class="container" id="scoreList">
+
     </div>
-    <div class="row">
-        <div class="col">
-            <button type="button" class="answerBtn btn btn-outline-secondary btnb">B: </button>
-        </div>
-    </div>
-    <div class="row">  
-        <div class="col">
-            <button type="button" class="answerBtn btn btn-outline-success btnc">C: </button>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col"> 
-            <button type="button" class="answerBtn btn btn-outline-danger btnd">D: </button>    
-        </div>
-    </div> 
-    <div class="row">
-        <div class="col">
-            <button type="button" class="changeBtn btnSubmit sbtn btn-primary">Start Game!!</button>
-        </div>    
-    </div> 
-    <div class="message">Have fun!!</div>
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
