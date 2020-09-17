@@ -50,13 +50,13 @@ btnB.classList.add("hideBtn");
 btnC.classList.add("hideBtn");
 btnD.classList.add("hideBtn"); 
 
-// setting and clearing timer for the start and automatic reset of the game
+// setting and clearing timer for the start and reset of the game
 // prompting for initials, and storing user information into userScores array on localStorage
 function setTime() {
-    secondsLeft = 30
+    secondsLeft = 30 
     intervalTimer = setInterval(function() {
     secondsLeft--;
-    countDown.textContent = secondsLeft;
+    countDown.textContent = secondsLeft-1;
 
     if(secondsLeft === 0 || currentQuestionIndex === 5) {
         var initials = prompt("Game Over, final score: " + score + ". Please enter your initials for the scoreboard.")
@@ -69,7 +69,7 @@ function setTime() {
 
         startBtn.classList.remove("hideBtn")
     
-         btnA.classList.add("hideBtn");
+        btnA.classList.add("hideBtn");
         btnB.classList.add("hideBtn")
         btnC.classList.add("hideBtn");
         btnD.classList.add("hideBtn");
@@ -78,11 +78,11 @@ function setTime() {
         countDown.textContent = "30 SECONDS TO PLAY"
         message.textContent = "Have Fun!!"
         score = 0
-        clearInterval(intervalTimer);
+        clearInterval(intervalTimer);  
     }
     }, 1000);
 }
-// event listener to start game and show first question
+// event listener to start game, start timer, and show first question
 startBtn.addEventListener("click", function(){
     showQuestion()
     setTime()
@@ -91,7 +91,7 @@ startBtn.addEventListener("click", function(){
     scoreList.classList.add("hideBtn")
 });
 
-// function to display the questions on the page one at a time after game initiation.
+// function to display the questions on the page one at a time after game initiation when an answer button is selected.
 function showQuestion(){
     scoreList.classList.add("hideBtn")
     btnA.classList.remove("hideBtn");
@@ -113,12 +113,13 @@ answerBtns.forEach(function(button) {
             score = score + 10
             message.textContent = "Correct! Current score: " + score
         }else{
-            if (secondsLeft >= 5) {
+            if (secondsLeft > 5) {
             secondsLeft = secondsLeft - 5
             message.textContent = "Oooh...you lose 5 seconds! Current score: " + score
             }else{ 
-                secondsLeft = 0;
-            }
+            secondsLeft = 1
+            message.textContent = "Oooh...you lose 5 seconds! Current score: " + score
+            }  
         }
         currentQuestionIndex ++
         if(currentQuestionIndex<5){
@@ -126,8 +127,9 @@ answerBtns.forEach(function(button) {
         }
     });
 });
-// pull high score information from localStorage to display for user
+// pull high score information from localStorage to display for user upon clicking high score button
 highScoresBtn.addEventListener("click", function(){
+    scoreList.textContent = ""
     function getLocalStorage(){
         scoreList.classList.remove("hideBtn")
         var localStorageData = JSON.parse(localStorage.getItem("userScores"))

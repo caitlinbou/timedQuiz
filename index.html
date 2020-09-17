@@ -12,14 +12,14 @@
     />
     <link rel="stylesheet" href="assets\style.css" />
   </head>
-  
+  <!-- bootstrap navbar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <button class="btn btn-secondary highScoresBtn">View High Scores</button>
       <span class="navbar-text countdown">
         30 SECONDS TO PLAY  
       </span>
   </nav>
-
+<!-- row/col containers for content and buttons -->
   <body>
     <div class="container" id="quizContent">
       <div class="row">
@@ -52,9 +52,11 @@
               <button type="button" class="startBtn sbtn btn-primary">Start Game!!</button>
           </div>    
       </div> 
+    <!-- message dynamically changed through javascript -->
       <div class="message">Have fun!!</div>
-
     </div>
+    <!-- hidden div to be appended and shown for high scores/initials -->
+    
     <div class="container hideBtn" id="scoreList">
 
     </div>
