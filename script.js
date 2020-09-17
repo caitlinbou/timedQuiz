@@ -32,7 +32,7 @@ var btnA = document.querySelector(".btna");
 var btnB = document.querySelector(".btnb");
 var btnC = document.querySelector(".btnc");
 var btnD = document.querySelector(".btnd");
-var btnSubmit = document.querySelector(".btnSubmit");
+var startBtn = document.querySelector(".startBtn");
 var answerBtns = document.querySelectorAll(".answerBtn")
 var currentQuestionIndex = 0
 var message = document.querySelector(".message");
@@ -40,20 +40,18 @@ var score = 0
 var countDown = document.querySelector(".countdown");
 var secondsLeft = 30;
 var intervalTimer;
-var highScores = document.querySelector(".highScores"); 
-var scores = {
-    initials: "",
-    score: ""
-}
-highScores = scores;
-// answerBtns.classList.add("hideBtn")
+var highScoresBtn = document.querySelector(".highScoresBtn"); 
+var userScores = []
+var scoreList = document.querySelector("#scoreList")
+
 // hiding the multiple choice buttons prior to start of game
-btnA.style.display = "none";
-btnB.style.display = "none";
-btnC.style.display = "none";
-btnD.style.display = "none"; 
+btnA.classList.add("hideBtn");
+btnB.classList.add("hideBtn");
+btnC.classList.add("hideBtn");
+btnD.classList.add("hideBtn"); 
 
 // setting and clearing timer for the start and automatic reset of the game
+// prompting for initials, and storing user information into userScores array on localStorage
 function setTime() {
     secondsLeft = 30
     intervalTimer = setInterval(function() {
@@ -61,39 +59,45 @@ function setTime() {
     countDown.textContent = secondsLeft;
 
     if(secondsLeft === 0 || currentQuestionIndex === 5) {
-      var initials = prompt("Game Over, final score: " + score + ". Please enter your initials for the scoreboard.")
-      document.querySelector("#scoreList").textContent = "High Scores: " + initials + "," + " " + "score:" + " " + score;
-    //   localStorage.setItem("quizScores", JSON.stringify(score));
-      btnSubmit.classList.remove("hideBtn")
-    //   answerBtns.classList.add("hideBtn")
-      btnA.style.display = "none";
-      btnB.style.display = "none";
-      btnC.style.display = "none";
-      btnD.style.display = "none";
-      currentQuestionIndex = 0
-      header.textContent = "Coding Quiz Challenge"
-      countDown.textContent = "30 SECONDS TO PLAY"
-      message.textContent = "Have Fun!!"
-      score = 0
-      clearInterval(intervalTimer);
+        var initials = prompt("Game Over, final score: " + score + ". Please enter your initials for the scoreboard.")
+        var user = {
+        initials: initials,
+        score: score
+        }
+        userScores.push(user)
+        localStorage.setItem("userScores", JSON.stringify(userScores))
+
+        startBtn.classList.remove("hideBtn")
+    
+         btnA.classList.add("hideBtn");
+        btnB.classList.add("hideBtn")
+        btnC.classList.add("hideBtn");
+        btnD.classList.add("hideBtn");
+        currentQuestionIndex = 0
+        header.textContent = "Coding Quiz Challenge"
+        countDown.textContent = "30 SECONDS TO PLAY"
+        message.textContent = "Have Fun!!"
+        score = 0
+        clearInterval(intervalTimer);
     }
     }, 1000);
 }
 // event listener to start game and show first question
-btnSubmit.addEventListener("click", function(){
+startBtn.addEventListener("click", function(){
     showQuestion()
     setTime()
-    btnSubmit.classList.add("hideBtn")
+    startBtn.classList.add("hideBtn")
     message.textContent = "You got this!"
+    scoreList.classList.add("hideBtn")
 });
 
-// function to display the questions on the page one at a time after game initiation
+// function to display the questions on the page one at a time after game initiation.
 function showQuestion(){
-    // answerBtns.classList.remove("hideBtn")
-    btnA.style.display = "inline-block";
-    btnB.style.display = "inline-block";
-    btnC.style.display = "inline-block";
-    btnD.style.display = "inline-block";
+    scoreList.classList.add("hideBtn")
+    btnA.classList.remove("hideBtn");
+    btnB.classList.remove("hideBtn");
+    btnC.classList.remove("hideBtn");
+    btnD.classList.remove("hideBtn");
     var currentQuestion = questionArr[currentQuestionIndex];
     header.textContent = currentQuestion.question;
     btnA.textContent = currentQuestion.answer[0];
@@ -101,7 +105,7 @@ function showQuestion(){
     btnC.textContent = currentQuestion.answer[2];
     btnD.textContent = currentQuestion.answer[3];
 };
-
+// check if answer correct, increment score or decrement time accordingly, provide user messages, and show next question
 answerBtns.forEach(function(button) {
     button.addEventListener("click", function(event){
         // console.log(event.target.textContent)
@@ -109,8 +113,12 @@ answerBtns.forEach(function(button) {
             score = score + 10
             message.textContent = "Correct! Current score: " + score
         }else{
+            if (secondsLeft >= 5) {
             secondsLeft = secondsLeft - 5
             message.textContent = "Oooh...you lose 5 seconds! Current score: " + score
+            }else{ 
+                secondsLeft = 0;
+            }
         }
         currentQuestionIndex ++
         if(currentQuestionIndex<5){
@@ -118,21 +126,20 @@ answerBtns.forEach(function(button) {
         }
     });
 });
+// pull high score information from localStorage to display for user
+highScoresBtn.addEventListener("click", function(){
+    function getLocalStorage(){
+        scoreList.classList.remove("hideBtn")
+        var localStorageData = JSON.parse(localStorage.getItem("userScores"))
+        localStorageData.forEach(function(user){
+        var pTag = document.createElement("p")
+         pTag.textContent = `${user.initials} - ${user.score}`
+         document.querySelector("#scoreList").appendChild(pTag)
+        })
+    }
+        getLocalStorage()
+});
 
-// highScores.addEventListener("click", function(){
-    localStorage.setItem("");
-    highScores = localStorage.getItem()
-
-    
-
-// });
-
-// score.push({})          
-            
-            
-
-// TODO: when game over show initials input and final score, store in local storage.
-    // TODO: HOW DO I STORE THE PROMPT ANSWER and score
     
 
             

@@ -1,12 +1,12 @@
 body {
-    background-image: url(White.jpg);
+    background-image: url(Desk.jpg);
 }
 
 header {
     color: Purple;
     font-size: 50px;
     text-align: center;
-    /* font-family: comic sans-serif; */
+    font-family: comic sans-serif;
 }
     
 .row {
@@ -27,4 +27,10 @@ header {
     color: blue;
     font-size: 30px;
     text-align: center;
+}
+
+.countdown {
+    color: black;
+    padding-left: 10px;
+    font-size: 30px;
 }
