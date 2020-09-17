@@ -9,6 +9,7 @@ Additional basic javascript components used are setInterval for the countdown cl
 There is also some very basic css styling, including hiding and showing buttons at the proper times. 
 
 gitHub link: https://github.com/caitlinbou/timedQuiz
+deployed quiz: https://caitlinbou.github.io/timedQuiz/
 
 ![initial page](assets\screenshot1.png)
 ![first quesion, shows countdown](assets\screenshot2.png)
